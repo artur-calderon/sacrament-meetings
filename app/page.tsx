@@ -16,7 +16,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="rounded-3xl bg-blue-100 p-8">
-          <Image src="/globe.svg" alt="Illustration of the world" width={320} height={320} className="mx-auto h-64 w-64 opacity-70" priority />
+          <Image src="/ward.jpg" alt="Illustration of a ward" width={320} height={320} className="mx-auto h-64 w-64 opacity-70" priority />
         </div>
       </div>
     </main>
