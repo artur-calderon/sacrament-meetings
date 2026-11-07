@@ -9,7 +9,7 @@ export default function Home() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">Cedar Hills Ward</p>
           <h1 className="mt-4 text-5xl font-bold leading-tight text-slate-900">Plan and review Sunday meetings.</h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-            Find announcements, hymns, prayers, ward business, speakers, and musical numbers in one simple program.
+            Find announcements, hymns, prayers, ward business, speakers, and musical numbers in one simple program!.
           </p>
           <Link href="/meetings/current" className="mt-8 inline-block rounded-lg bg-blue-700 px-6 py-3 font-semibold text-white hover:bg-blue-800">
             View current Sunday
