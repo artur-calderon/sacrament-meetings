@@ -1,6 +1,9 @@
 import { getMeetings } from "../../../lib/meetings-db";
 
 export async function GET(request: Request) {
-  const date = new URL(request.url).searchParams.get("date");
-  return Response.json(getMeetings(date));
+  const searchParams = new URL(request.url).searchParams;
+  const date = searchParams.get("date");
+  const query = searchParams.get("query") ?? "";
+  const page = Number(searchParams.get("page")) || 1;
+  return Response.json(await getMeetings(date ?? query, page));
 }

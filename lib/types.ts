@@ -13,6 +13,8 @@ export interface SpeakerItem {
 
 export interface WardBusinessItem {
   description: string;
+  subject: string;
+  responsible: string;
 }
 
 export interface SacramentMeeting {

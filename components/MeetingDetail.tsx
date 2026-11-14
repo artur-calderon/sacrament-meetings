@@ -47,7 +47,19 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
         </section>
         <section>
           <h2 className="section-title">Ward business</h2>
-          {meeting.wardBusiness.length ? <ul className="list-disc space-y-1 pl-5 text-slate-700">{meeting.wardBusiness.map((item) => <li key={item.description}>{item.description}</li>)}</ul> : <p className="text-slate-500">None</p>}
+          {meeting.wardBusiness.length ? (
+            <ul className="list-disc space-y-1 pl-5 text-slate-700">
+              {meeting.wardBusiness.map((item, index) => (
+                <li key={index}>
+                  <strong>{item.subject}</strong>
+                  {" - "}
+                  {item.responsible}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-slate-500">None</p>
+          )}
         </section>
         <section>
           <h2 className="section-title">Stake business</h2>
