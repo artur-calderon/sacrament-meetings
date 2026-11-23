@@ -1,4 +1,4 @@
-import type { SacramentMeeting } from "./types";
+import type { MeetingInput, SacramentMeeting } from "./types";
 import { databaseConnection } from "./neon";
 
 // const meetings: SacramentMeeting[] = [
@@ -214,8 +214,39 @@ export async function getMeetingById(id: number): Promise<SacramentMeeting | nul
   return (meetings[0] as unknown as SacramentMeeting) ?? null;
 }
 
-// export function addMetting(meeting: SacramentMeeting): void { }
+export async function addMeeting(meeting: MeetingInput) {
+  await databaseConnection`
+    INSERT INTO meetings (
+      date, meeting_type, presiding, conducting, announcements,
+      opening_hymn, opening_prayer, stake_business, sacrament_hymn,
+      closing_hymn, closing_prayer
+    )
+    VALUES (
+      ${meeting.date}, ${meeting.meetingType}, ${meeting.presiding}, ${meeting.conducting}, ${meeting.announcements},
+      ${JSON.stringify(meeting.openingHymn)}::jsonb, ${meeting.openingPrayer}, ${meeting.stakeBusiness},
+      ${JSON.stringify(meeting.sacramentHymn)}::jsonb, ${JSON.stringify(meeting.closingHymn)}::jsonb, ${meeting.closingPrayer}
+    )
+  `;
+}
 
-// export function updateMeeting(meeting: SacramentMeeting): void { }
+export async function updateMeeting(id: number, meeting: MeetingInput) {
+  await databaseConnection`
+    UPDATE meetings SET
+      date = ${meeting.date},
+      meeting_type = ${meeting.meetingType},
+      presiding = ${meeting.presiding},
+      conducting = ${meeting.conducting},
+      announcements = ${meeting.announcements},
+      opening_hymn = ${JSON.stringify(meeting.openingHymn)}::jsonb,
+      opening_prayer = ${meeting.openingPrayer},
+      stake_business = ${meeting.stakeBusiness},
+      sacrament_hymn = ${JSON.stringify(meeting.sacramentHymn)}::jsonb,
+      closing_hymn = ${JSON.stringify(meeting.closingHymn)}::jsonb,
+      closing_prayer = ${meeting.closingPrayer}
+    WHERE id = ${id}
+  `;
+}
 
-// export function deleteMeeting(id: number): void { }
+export async function deleteMeeting(id: number) {
+  await databaseConnection`DELETE FROM meetings WHERE id = ${id}`;
+}
