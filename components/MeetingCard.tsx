@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { deleteMeeting } from "../lib/actions";
 import type { SacramentMeeting } from "../lib/types";
 
 interface MeetingCardProps {
@@ -13,22 +14,38 @@ const meetingTypeLabels: Record<SacramentMeeting["meetingType"], string> = {
 };
 
 export default function MeetingCard({ meeting }: MeetingCardProps) {
+  const deleteMeetingWithId = deleteMeeting.bind(null, meeting.id);
+  const formattedDate = new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(new Date(`${meeting.date}T12:00:00`));
+
   return (
-    <Link
-      href={`/meetings/${meeting.id}`}
-      className="block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-md"
-    >
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">
-            {new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(new Date(`${meeting.date}T12:00:00`))}
-          </p>
-          <h2 className="mt-2 text-xl font-bold text-slate-900">{meetingTypeLabels[meeting.meetingType]}</h2>
-        </div>
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">View</span>
-      </div>
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-blue-300 hover:shadow-md">
+      <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">{formattedDate}</p>
+      <h2 className="mt-2 text-xl font-bold text-slate-900">
+        <Link href={`/meetings/${meeting.id}`} className="hover:underline">
+          {meetingTypeLabels[meeting.meetingType]}
+        </Link>
+      </h2>
       <p className="mt-4 text-sm text-slate-600">Presiding: {meeting.presiding}</p>
       <p className="text-sm text-slate-600">Conducting: {meeting.conducting}</p>
-    </Link>
+
+      <div className="mt-5 flex gap-2">
+        <Link
+          href={`/meetings/${meeting.id}/edit`}
+          aria-label={`Edit meeting on ${formattedDate}`}
+          className="rounded-lg bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 hover:bg-slate-200"
+        >
+          Edit
+        </Link>
+        <form action={deleteMeetingWithId}>
+          <button
+            type="submit"
+            aria-label={`Delete meeting on ${formattedDate}`}
+            className="rounded-lg bg-red-50 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-100"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }

@@ -33,3 +33,5 @@ export interface SacramentMeeting {
   closingHymn: Hymn;
   closingPrayer: string;
 }
+
+export type MeetingInput = Omit<SacramentMeeting, "id" | "speakers" | "wardBusiness">;

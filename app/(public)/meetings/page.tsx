@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MeetingCard from "@/components/MeetingCard";
 import { MeetingSearch } from "@/components/MeetingSearch";
 import { Pagination } from "@/components/Pagination";
@@ -20,10 +21,15 @@ export default async function MeetingsPage({ searchParams }: MeetingsPageProps) 
 
   return (
     <main className="py-10">
-      <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">Meeting library</p>
-        <h1 className="mt-2 text-4xl font-bold text-slate-900">Sacrament meetings</h1>
-        <p className="mt-3 max-w-2xl text-slate-600">Review current and past meeting programs for Cedar Hills Ward.</p>
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">Meeting library</p>
+          <h1 className="mt-2 text-4xl font-bold text-slate-900">Sacrament meetings</h1>
+          <p className="mt-3 max-w-2xl text-slate-600">Review current and past meeting programs for Cedar Hills Ward.</p>
+        </div>
+        <Link href="/meetings/new" className="rounded-lg bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800">
+          New meeting
+        </Link>
       </div>
       <MeetingSearch />
       <div className="mt-8 grid gap-5 md:grid-cols-2">
